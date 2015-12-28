@@ -20,7 +20,7 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-build/
+compiled/
 # dist/
 
 # Dependency directorys
@@ -36,4 +36,4 @@ client/lib/jquery
 .flooignore
 
 # config
-config.js
+config.coffee
