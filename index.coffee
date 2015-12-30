@@ -6,6 +6,7 @@
 Twitter = require "twitter"
 config = require "./config.js"
 regex = require "./regex.js"
+db = require "./db.js"
 
 client = new Twitter
   consumer_key: config.consumer_key
@@ -17,7 +18,9 @@ ourParams =
 createFilterStream = (params) ->
   client.stream 'statuses/filter', params, (stream) ->
     stream.on 'data', (tweet)->
-      if isTweetGood tweet then console.log tweet.text, tweet.id_str
+      if isTweetGood tweet 
+        console.log tweet.text, tweet.id_str 
+        db.addTweet tweet.id_str
     stream.on 'error', (error)->
       throw error
 ## this is where we should do all the the filtering
