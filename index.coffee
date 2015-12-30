@@ -17,7 +17,7 @@ ourParams =
 createFilterStream = (params) ->
   client.stream 'statuses/filter', params, (stream) ->
     stream.on 'data', (tweet)->
-      if isTweetGood tweet then console.log tweet.text
+      if isTweetGood tweet then console.log tweet.text, tweet.id_str
     stream.on 'error', (error)->
       throw error
 ## this is where we should do all the the filtering
@@ -29,4 +29,4 @@ isTweetGood = (tweet) ->
   true
 createFilterStream ourParams
 saveTweet = (tweet) ->
-  
+

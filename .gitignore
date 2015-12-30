@@ -37,3 +37,6 @@ client/lib/jquery
 
 # config
 config.coffee
+
+#javascript
+*.js

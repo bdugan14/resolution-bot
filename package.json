@@ -2,7 +2,7 @@
   "name": "resolution-bot",
   "version": "1.0.0",
   "description": "it keeps you to your resolutions",
-  "main": "compiled/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
