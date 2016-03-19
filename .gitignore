@@ -40,3 +40,6 @@ config.coffee
 
 #javascript
 *.js
+
+#webstorm crap
+.idea/
