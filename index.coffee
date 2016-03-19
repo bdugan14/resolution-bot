@@ -25,9 +25,11 @@ createFilterStream = (params) ->
       throw error
 ## this is where we should do all the the filtering
 isTweetGood = (tweet) ->
+  if not tweet.text then return console.log tweet
   if tweet.text.slice(0,2) is "RT" then return false
   if regex.blacklist.test(tweet.text) is true then return false
   if regex.whitelist.test(tweet.text) is false then return false
+  if tweet.user.followers_count < 500 then return false
   ##this doesn't check anything about the user yet
   true
 createFilterStream ourParams
