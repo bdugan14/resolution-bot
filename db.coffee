@@ -5,3 +5,5 @@ tweets = db.get('tweets')
 module.exports = 
   addTweet: (tweetId) ->
     tweets.insert(tweet_id: tweetId)
+  fetchTweets: ->
+    tweets.find({})
