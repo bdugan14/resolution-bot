@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "responses.js",
+  "sourceRoot": "",
+  "sources": [
+    "responses.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA;;EAAA,SAAA,GAAY,CACV,kCADU,EAEV,sBAFU,EAGV,qDAHU,EAIV,sBAJU,EAKV,4CALU,EAMV,iDANU,EAOV,mCAPU,EAQV,6BARU;;EAWZ,MAAM,CAAC,OAAP,GACE;IAAA,SAAA,EAAW,SAAX;;AAZF"
+}

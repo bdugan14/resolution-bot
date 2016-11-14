@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "testTweets.js",
+  "sourceRoot": "",
+  "sources": [
+    "testTweets.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAqBA;AAAA,MAAA;;EAAA,SAAA,GAAY,CACV,oBADU,EAEV,oBAFU,EAGV,oBAHU,EAIV,oBAJU,EAKV,oBALU,EAMV,oBANU;;EASZ,MAAM,CAAC,OAAP,GACE;IAAA,SAAA,EAAW,SAAX;;AAVF"
+}
