@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "it keeps you to your resolutions",
   "main": "index.coffee",
+  "scripts": {
+    "start": "node_modules/coffee-script/bin/coffee index.coffee"
+  },
   "engines": {
     "node": "4.2.4"
   },
