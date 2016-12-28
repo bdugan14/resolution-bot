@@ -4,7 +4,6 @@
 ## The second is our config file, and the ./ signifies it's in the same folder
 ## as our index.js
 require('dotenv').config()
-console.log 'process.env: ', process.env
 Twitter = require "twitter"
 R = require 'ramda'
 regex = require "./regex.js"

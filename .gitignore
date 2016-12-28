@@ -46,3 +46,6 @@ config.coffee
 
 #env variables
 .env
+
+# idk what js maps are
+*.map
