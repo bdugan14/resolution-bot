@@ -4,6 +4,7 @@
 ## The second is our config file, and the ./ signifies it's in the same folder
 ## as our index.js
 Twitter = require "twitter"
+R = require 'ramda'
 config = require "./config.js"
 regex = require "./regex.js"
 db = require "./db.js"
@@ -16,7 +17,7 @@ client = new Twitter
   consumer_secret: config.consumer_secret
   access_token_key: config.access_token_key
   access_token_secret: config.access_token_secret
-ourParams = 
+ourParams =
   track: '#newyearsresolution, new years resolution'
 createFilterStream = (params) ->
   client.stream 'statuses/filter', params, (stream) ->
@@ -29,7 +30,8 @@ createFilterStream = (params) ->
 ## this is where we should do all the the filtering
 
 generateTweet = (username) ->
-  ".@#{username} #{responses.responses[Math.floor(Math.random()*responses.responses.length)]}"
+  rawtweet="#{responses.responses[Math.floor(Math.random()*responses.responses.length)]}"
+  rawtweet.replace('{handle}', username.slice(1))
 
 postTweet = (tweetId, status) ->
   console.log "postingTweet...", tweetId, status
@@ -74,6 +76,17 @@ getManyTweets = (tweets) ->
   )
   defer.promise
 
+#Takes an array of tweets, and index, and a defer
+_recurseThroughTweets = (tweets, n, defer) ->
+  _tweet = tweets[n]
+
+
+_handleTweets = (tweets) ->
+  defer = q.defer()
+
+  _recurseThroughTweets tweets, 0, defer
+  defer.promise
+
 
 fetchTweetsFromDb = ->
   console.log 'calling fetchTweetsFromDb!'
@@ -98,22 +111,25 @@ isTweetGood = (tweet) ->
 #postTweet '711268538271424512', '@AndyOnTheWeeknd lala fake tweet'
 #getTweet '711268538271424512'
 #getManyTweets testTweets.tweetList
-#fetchTweetsFromDb().then (tweets) ->
-#  console.log 'tweets: ', tweets
-#  _first100 = tweets.slice 0, 100
-#  getManyTweets(_first100)
-#  .then (tweets) ->
-#    console.log 'in thingy'
-#    _tweets = tweets.map (tweetObj) ->
-#      id: tweetObj.id_str
-#      status: generateTweet(tweetObj.screen_name)
-#    console.log 'tweets: ', _tweets
+fetchTweetsFromDb().then (tweets) ->
+  console.log 'tweets: ', tweets
+  # TODO: get this to do more than 100 tweets
+  _hundredRawTweetChunk = tweets.slice n, (n+100)
+  getManyTweets(_hundredRawTweetChunk)
+  .then (tweets) ->
+    console.log 'in thingy'
+    _tweets = tweets.map (tweetObj) ->
+      id: tweetObj.id_str
+      status: generateTweet(tweetObj.screen_name)
+    console.log '_tweets: ', _tweets
+    _tweets
+  .then _handleTweets
 
 
 
 
-#  console.log 'first 100', _first100
-#  console.log 'first 100 length: ', _first100.length
+#  console.log 'first 100', _hundredRawTweetChunk
+#  console.log 'first 100 length: ', _hundredRawTweetChunk.length
 #
 #
 #getManyTweets(['795848031958495232','798010102556958721', '712362150145077248'])
@@ -121,6 +137,6 @@ isTweetGood = (tweet) ->
 #  tweets.map (tweet) ->
 #    console.log 'tweet:', tweets
 #    postTweet(tweet.id_str, generateTweet(tweet.screen_name))
-postTweet '798010102556958721', generateTweet('andyontheweeknd')
+#postTweet '798010102556958721', generateTweet('andyontheweeknd')
 
 
