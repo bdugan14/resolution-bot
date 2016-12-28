@@ -12,6 +12,8 @@ testTweets = require './testTweets.js'
 responses = require './responses.js'
 q = require 'q'
 
+twitterApiTime = 36000
+
 client = new Twitter
   consumer_key: config.consumer_key
   consumer_secret: config.consumer_secret
@@ -31,13 +33,14 @@ createFilterStream = (params) ->
 
 generateTweet = (username) ->
   rawtweet="#{responses.responses[Math.floor(Math.random()*responses.responses.length)]}"
-  rawtweet.replace('{handle}', username.slice(1))
+  rawtweet.replace('{handle}', "@#{username}")
 
 postTweet = (tweetId, status) ->
   console.log "postingTweet...", tweetId, status
   _params =
     status: status
     in_reply_to_status_id: tweetId
+    # uncomment when live
   client.post('statuses/update', _params, (error, tweet, response) ->
     console.log "got response..."
     if(error) then throw error
@@ -79,11 +82,16 @@ getManyTweets = (tweets) ->
 #Takes an array of tweets, and index, and a defer
 _recurseThroughTweets = (tweets, n, defer) ->
   _tweet = tweets[n]
+  postTweet _tweet.id, _tweet.status
+  if n is (tweets.length - 1)
+    return defer.resolve true
+  setTimeout ->
+    _recurseThroughTweets tweets, n+1, defer
+  , twitterApiTime
 
 
 _handleTweets = (tweets) ->
   defer = q.defer()
-
   _recurseThroughTweets tweets, 0, defer
   defer.promise
 
@@ -112,9 +120,11 @@ isTweetGood = (tweet) ->
 #getTweet '711268538271424512'
 #getManyTweets testTweets.tweetList
 fetchTweetsFromDb().then (tweets) ->
-  console.log 'tweets: ', tweets
+  console.log 'tweets: ', tweets.length
   # TODO: get this to do more than 100 tweets
+  n = 0
   _hundredRawTweetChunk = tweets.slice n, (n+100)
+  console.log 'hundredRawTweetChung: ', _hundredRawTweetChunk.length
   getManyTweets(_hundredRawTweetChunk)
   .then (tweets) ->
     console.log 'in thingy'
@@ -124,6 +134,8 @@ fetchTweetsFromDb().then (tweets) ->
     console.log '_tweets: ', _tweets
     _tweets
   .then _handleTweets
+  .then (done) ->
+    console.log 'done!', done
 
 
 
