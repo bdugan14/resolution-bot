@@ -2,14 +2,14 @@
 ## the first one, Twitter is a third-party library that
 ## handles interaction with the twitter api. It's capitalized because it's a constructor.
 ## The second is our config file, and the ./ signifies it's in the same folder
-## as our index.js
+## as our index.coffee
 require('dotenv').config()
 Twitter = require "twitter"
 R = require 'ramda'
-regex = require "./regex.js"
-db = require "./db.js"
-testTweets = require './testTweets.js'
-responses = require './responses.js'
+regex = require "./regex.coffee"
+db = require "./db.coffee"
+testTweets = require './testTweets.coffee'
+responses = require './responses.coffee'
 q = require 'q'
 
 twitterApiTime = 36000
@@ -116,11 +116,9 @@ isTweetGood = (tweet) ->
 #postTweet '711268538271424512', '@AndyOnTheWeeknd lala fake tweet'
 #getTweet '711268538271424512'
 #getManyTweets testTweets.tweetList
-console.log 'process.env: ', process.env
 
 fetchTweetsFromDb().then (tweets) ->
   console.log 'tweets: ', tweets.length
-  console.log 'process.env: ', process?.env
   # TODO: get this to do more than 100 tweets
   n = 0
   _hundredRawTweetChunk = tweets.slice n, (n+100)
