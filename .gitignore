@@ -43,3 +43,6 @@ config.coffee
 
 #webstorm crap
 .idea/
+
+#env variables
+.env

@@ -1,5 +1,4 @@
-config = require('./config.js')
-db = require('monk')(config.mongolabsURI);
+db = require('monk')(process.env.MONGOLABS_URI);
 tweets = db.get('tweets')
 
 module.exports =

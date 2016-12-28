@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "regex.js",
+  "sourceRoot": "",
+  "sources": [
+    "regex.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAGA;AAAA,MAAA;;EAAA,SAAA,GAAY;;EACZ,SAAA,GAAY;;EACZ,MAAM,CAAC,OAAP,GACE;IAAA,SAAA,EAAW,SAAX;IACA,SAAA,EAAW,SADX;;AAHF"
+}

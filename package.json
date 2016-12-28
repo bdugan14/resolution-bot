@@ -4,7 +4,7 @@
   "description": "it keeps you to your resolutions",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "prestart": "npm install"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "async": "^1.5.0",
     "coffee-script": "^1.12.2",
     "documentdb": "^1.4.0",
+    "dotenv": "^2.0.0",
     "express": "^4.13.3",
     "mathjs": "^2.5.0",
     "monk": "^1.0.1",
