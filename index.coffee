@@ -41,12 +41,12 @@ postTweet = (tweetId, status) ->
     status: status
     in_reply_to_status_id: tweetId
     # uncomment when live
-#  client.post('statuses/update', _params, (error, tweet, response) ->
-#    console.log "got response..."
-#    if(error) then throw error
+  client.post('statuses/update', _params, (error, tweet, response) ->
+    console.log "got response..."
+    if(error) then throw error
 #    console.log "tweet: ", tweet
-#    console.log "response", response
-#  )
+    console.log "response from post"
+  )
 
 getTweet = (tweetId) ->
   client.get('statuses/show/', {id: tweetId}, (error, tweet, response) ->
@@ -133,9 +133,6 @@ fetchTweetsFromDb().then (tweets) ->
   .then _handleTweets
   .then (done) ->
     console.log 'done!', done
-
-
-
 
 #  console.log 'first 100', _hundredRawTweetChunk
 #  console.log 'first 100 length: ', _hundredRawTweetChunk.length
